@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      Детали задачи
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ task.title }}</h5>
+      <p class="card-text">Описание: {{ task.description|safe }}</p>
+      <p class="card-text">Срок до: {{ task.deadline }}</p>
+      <p class="card-text">Приоритет:
+        {% if task.priority == 5 %}
+          Очень важно
+        {% elif task.priority == 4 %}
+          Важно
+        {% elif task.priority == 3 %}
+          Средний приоритет
+        {% elif task.priority == 2 %}
+          Низкий приоритет
+        {% else %}
+          Очень низкий приоритет
+        {% endif %}
+      </p>
+      <p class="card-text">Статус: {% if task.completed %}Готов{% else %}Не готов{% endif %}</p>
+      <a href="{% url 'task_edit' task.pk %}" class="btn btn-warning">Редактировать</a>
+      <a href="{% url 'task_delete' task.pk %}" class="btn btn-danger">Удалить</a>
+      <a href="{% url 'task_list' %}" class="btn btn-primary">Назад</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+  <div class="text-center">
+    <h2>Авторизация</h2>
+    <form method="post" class="form-signin">
+      {% csrf_token %}
+      <div class="form-group">
+        <div class="text-center">
+          <label for="id_username">Имя пользователя:</label>
+        </div>
+        <div>
+          {{ form.username }}
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="text-center">
+          <label for="id_password">Пароль:</label>
+        </div>
+        <div>
+          {{ form.password }}
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Войти</button>
+    </form>
+    <p>У вас нет аккаунта? <a href="{% url 'signup' %}">Регистрация</a></p>
+  </div>
+</div>
+{% endblock %}

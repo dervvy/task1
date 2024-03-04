@@ -1,0 +1,39 @@
+.task-card {
+  width: 220px;
+  height: 240px;
+  overflow: hidden;
+  position: relative;
+}
+
+.task-card .card-header {
+  width: 220px;
+  height: 60px;
+  padding: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.task-card .card-body {
+  position: relative;
+  height: 180px;
+  padding: 10px;
+}
+
+.task-card .card-text {
+  height: calc(100% - 40px); /* Высота за вычетом кнопок */
+  overflow: hidden;
+}
+
+.task-actions {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  text-align: center;
+  visibility: hidden;
+}
+
+.task-card:hover .task-actions {
+  visibility: visible;
+}

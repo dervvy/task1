@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="text-center mt-4 mb-4">
+  <a href="{% url 'sort_by_date' %}" class="btn btn-primary" style="background-color: #278CFF; color: #fff; font-size: 8px; border-radius: 5px; padding: 5px 10px; border: none; transition: background-color 0.3s; cursor: pointer;" onmouseover="this.style.backgroundColor='#1E78DE'" onmouseout="this.style.backgroundColor='#278CFF'">Сортировать по дате</a>
+  <a href="{% url 'task_new' %}" class="btn btn-primary create-task-btn">Создать таск</a>
+  <a href="{% url 'sort_by_priority' %}" class="btn btn-primary" style="background-color: #278CFF; color: #fff; font-size: 8px; border-radius: 5px; padding: 5px 10px; border: none; transition: background-color 0.3s; cursor: pointer;" onmouseover="this.style.backgroundColor='#1E78DE'" onmouseout="this.style.backgroundColor='#278CFF'">Сортировать по важности</a>
+</div>
+<div class="d-flex flex-wrap justify-content-center">
+{% for task in tasks %}
+    {% if forloop.first or forloop.counter0|divisibleby:4 %}
+      <div class="d-flex flex-wrap justify-content-center">
+    {% endif %}
+    <div class="card task-card mx-2" onclick="window.location='{% url 'task_detail' task.pk %}'" style="margin-bottom: 20px; transition: background-color 0.3s;" onmouseover="this.style.backgroundColor='rgba(0, 0, 0, 0.1)'; this.style.cursor='pointer';" onmouseout="this.style.backgroundColor='';">
+      <div class="card-header" style="background-color: {% if task.priority == 5 %}#EFA619{% elif task.priority == 4 %}#BB62B2{% elif task.priority == 3 %}#3857C8{% elif task.priority == 2 %}#7A94F0{% else %}#8D9DAC{% endif %}; color: white">
+        {{ task.title|truncatechars:20 }}
+      </div>
+      <div class="card-body">
+        <span class="status-indicator" style="background-color: {% if task.completed %}#CFF5D1{% else %}#FFD4E0{% endif %}; border-radius: 10px; padding: 3px 8px 3px 8px;">
+          {% if task.completed %}Готов{% else %}Не готов{% endif %}
+        </span>
+        <p style="overflow-wrap: break-word;">{{ task.first_line_description|safe|truncatechars:25 }}</p>
+        <p style="border: 1px solid #FFE3AC; border-radius: 10px; padding: 3px 8px 3px 8px;">Срок: {{ task.deadline }}</p>
+        <div class="task-actions" style="margin-top: 5px;">
+          <a href="{% url 'task_edit' task.pk %}" class="btn btn-warning btn-sm" style="margin-top: 5px;">Редактировать</a>
+          <a href="{% url 'task_delete' task.pk %}" class="btn btn-danger btn-sm" style="margin-top: 5px;">Удалить</a>
+        </div>
+      </div>
+    </div>
+    {% if forloop.last or forloop.counter|divisibleby:4 %}
+      </div>
+    {% endif %}
+  {% empty %}
+    <p>Задачи не найдены.</p>
+  {% endfor %}
+</div>
+{% endblock %}

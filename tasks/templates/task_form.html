@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>{% if object %}Редактирование задачи{% else %}Создание задачи{% endif %}</h2>
+<form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.media }}
+    <div style="margin-bottom: 15px;">
+        <label for="{{ form.title.id_for_label }}">Название:</label><br>
+        {{ form.title }}
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label for="{{ form.description.id_for_label }}">Описание:</label><br>
+        {{ form.description }}
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label for="{{ form.deadline.id_for_label }}">Срок выполнения:</label><br>
+        {{ form.deadline }}
+    </div>
+    <div style="margin-bottom: 15px; overflow: hidden;">
+        <label style="float: left; margin-right: 10px;" for="{{ form.completed.id_for_label }}">Завершено:</label>
+        <div style="float: left;">
+            {{ form.completed }}
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label for="{{ form.priority.id_for_label }}">Приоритет:</label><br>
+        {{ form.priority }}
+    </div>
+    <button type="submit" class="btn btn-success">
+        {% if object %}Сохранить изменения{% else %}Создать задачу{% endif %}
+    </button>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+{{ form.media }}
+{% endblock %}

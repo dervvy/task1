@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+{% block content %}
+<h2>Вы уверенны что хотите удалить "{{ object.title }}"?</h2>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Да, удалить</button>
+    <a href="{% url 'task_list' %}" class="btn btn-secondary">Отмена</a>
+</form>
+
+{% endblock %}
