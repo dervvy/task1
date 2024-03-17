@@ -11,7 +11,7 @@ from .models import Task
 
 def logoutacc(request):
     logout(request)
-    return redirect('login')  # Перенаправление на страницу входа после выхода
+    return redirect('login')
 def signup(request):
     if request.user.is_authenticated:
         return redirect('task_list')
